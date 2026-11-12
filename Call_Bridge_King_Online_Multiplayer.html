@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101c30"><title>♠ Call Bridge King</title>
+<style>
+:root{--bg:#07101d;--bg2:#263b54;--panel:#142238eF;--gold:#ffd36b;--line:#a77b36;--text:#fff7d5;--accent:#d88916;--good:#57d38c;--bad:#ff7777}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--text);font-family:system-ui,"Noto Sans Bengali",sans-serif;background:radial-gradient(ellipse at 50% 35%,var(--bg2),var(--bg) 70%);overflow-x:hidden;transition:.25s}
+body.light{--bg:#dfe8f2;--bg2:#8ba3ba;--panel:#f7fbffeF;--text:#182238;--gold:#865b08}body.neon{--bg:#080018;--bg2:#291057;--panel:#180b35ee;--gold:#70f5ff;--line:#bd55ff;--accent:#8f36ff}
+header{height:62px;text-align:center;padding:9px 8px 4px;background:linear-gradient(90deg,#090f1c,#26324a,#090f1c);border-bottom:2px solid var(--line)}h1{margin:0;color:var(--gold);font-size:22px;text-shadow:0 2px 4px #000}header p{margin:0;font-size:11px;color:#f5e5b5}main{max-width:1100px;margin:auto;padding:8px}.panel{background:linear-gradient(145deg,var(--panel),#101a2de8);border:1px solid var(--line);border-radius:13px;padding:10px;margin:8px 0;box-shadow:0 5px 16px #0008}.gameboard{position:relative;min-height:430px;padding:8px 10px 2px}.hidden{display:none!important}
+#seats{height:0;overflow:visible;display:block}.seat{position:absolute;z-index:3;min-width:112px;text-align:center;background:linear-gradient(#3b2141,#140f20);border:2px solid var(--line);border-radius:12px;padding:7px 8px;box-shadow:0 3px 10px #000;transform:translateX(-50%);transition:.2s}.seat.active{box-shadow:0 0 0 3px var(--gold),0 0 20px var(--gold);transform:translateX(-50%) scale(1.04)}.seat strong{display:block;color:var(--gold);font-size:15px}.muted{display:block;color:#f5e5b5;font-size:11px;margin-top:3px}.seat:nth-child(1){left:50%;bottom:8px}.seat:nth-child(2){left:50%;top:5px}.seat:nth-child(3){left:5px;top:48%;transform:translateY(-50%)}.seat:nth-child(4){right:5px;top:48%;transform:translateY(-50%)}.seat:nth-child(3).active,.seat:nth-child(4).active{transform:translateY(-50%) scale(1.04)}
+#table{position:relative;min-height:360px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;border-radius:50%;background:radial-gradient(ellipse,#263e58 0,#182b43 52%,transparent 72%);border:1px solid #ffffff12;margin:0}.played{animation:deal .25s ease-out;background:linear-gradient(135deg,#fff,#e8e4d9);color:#142033;border:1px solid #d8c9a5;border-radius:9px;width:72px;height:100px;display:flex;flex-direction:column;justify-content:space-between;padding:7px;font-size:25px;box-shadow:0 6px 12px #0009;transform:rotate(-5deg)}.played:nth-child(even){transform:rotate(5deg)}.played.winner{box-shadow:0 0 0 3px var(--gold),0 0 18px var(--gold)}.played small{font-size:10px;color:#5a4c3b}.red{color:#d52b32}.black{color:#152238}@keyframes deal{from{opacity:0;transform:scale(.5) rotate(-20deg)}to{opacity:1}}
+#message{position:relative;text-align:center;color:var(--gold);font-weight:800;text-shadow:0 2px 4px #000;min-height:28px;padding:6px 2px}.flash{animation:flash .45s}@keyframes flash{50%{color:#fff;transform:scale(1.08)}}#bidPanel{text-align:center;background:linear-gradient(145deg,#3c1734,#160e20);border:2px solid #d39b36}button{border:1px solid #dba43d;border-radius:10px;padding:10px 14px;font-weight:800;font-size:14px;background:linear-gradient(#ffd76b,#d88916);color:#291a08;cursor:pointer;box-shadow:0 3px 5px #0007;transition:.15s}button:hover{filter:brightness(1.12);transform:translateY(-1px)}button:disabled{opacity:.35;cursor:not-allowed;transform:none}.secondary{background:linear-gradient(#d8e1ec,#8da1b7);color:#152238}.danger{background:linear-gradient(#ff9b9b,#c33d3d);color:#fff}.bid-display{display:flex;align-items:baseline;justify-content:center;gap:7px;margin:3px auto 8px;color:var(--gold);text-shadow:0 2px 4px #000}.bid-display span{font-size:38px;font-weight:900;line-height:1}.bid-slider{display:block;width:min(88%,440px);margin:12px auto 3px;accent-color:#f6b52d;height:28px;cursor:pointer}.bid-marks{width:min(88%,440px);margin:0 auto;display:flex;justify-content:space-between;color:#e9c77d;font-size:11px}.actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.hand{display:flex;justify-content:center;flex-wrap:nowrap;gap:0;margin:8px auto 3px;overflow-x:auto;padding:8px 4px 12px;max-width:100%;min-height:105px}.card{flex:0 0 54px;width:54px;height:88px;position:relative;background:linear-gradient(135deg,#fff1a5,#d9a92e 23%,#fff0a0 48%,#c58a18 75%,#ffe99a);color:#161020;border:2px solid #f7d879;border-radius:8px;font-size:19px;font-weight:900;display:block;cursor:pointer;box-shadow:0 4px 9px #0009;margin-left:-7px;overflow:hidden;padding:0}.card:hover:not(:disabled){transform:translateY(-10px) rotate(-2deg);z-index:5}.card:first-child{margin-left:0}.card.red{color:#b51d26}.card:disabled{opacity:.58;cursor:not-allowed}.corner{position:absolute;z-index:1;display:flex;flex-direction:column;align-items:center;line-height:.9;font-style:normal;font-size:13px;gap:2px}.corner i{font-style:normal;font-size:12px}.corner.top{top:5px;left:5px}.corner.bottom{bottom:5px;right:5px;transform:rotate(180deg)}.big-suit{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:31px}.pip-layout{position:absolute;z-index:1;left:8px;right:8px;top:21px;bottom:20px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(var(--rows),1fr);align-items:center;justify-items:center;font-size:14px;line-height:1;color:currentColor}.pip-layout .pip{display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:14px}.pip-layout .pip.mid{grid-column:1/3;font-size:17px}.pip-layout .pip.flip{transform:rotate(180deg)}.card .pip-layout{left:5px;right:5px;top:19px;bottom:18px}.card .pip-layout .pip{font-size:12px}.card .pip-layout .pip.mid{font-size:15px}.royal-art{position:absolute;left:7px;right:7px;top:15px;width:calc(100% - 14px);height:calc(100% - 30px);z-index:1;filter:drop-shadow(0 1px 1px #6d481b)}.ace-art{position:absolute;inset:14px 5px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#25162b;z-index:1;border:1px double #9c6c1d;border-radius:5px;background:radial-gradient(ellipse,#fff0a8,#c58a25);box-shadow:inset 0 0 0 3px #fff4a8,inset 0 0 0 5px #9d6c24}.ace-art b{font:bold 24px Georgia}.ace-art strong{font-size:30px}.ace-art small{font-size:6px;letter-spacing:1px}.ace-halo{font-size:13px}.played.gold-card{width:66px;height:96px;padding:0;border-radius:8px}.played.gold-card>small{position:absolute;z-index:2;top:-17px;left:0;right:0;text-align:center;color:var(--gold);font-size:10px}
+#scores,#log,#stats{font-size:12px;line-height:1.7;color:#e9dfc5}#log{max-height:120px;overflow:auto}.scoreline{display:flex;justify-content:space-between;border-bottom:1px solid #ffffff18;padding:2px}.scoreline b{color:var(--gold)}.toolbar{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}.toolbar button{padding:7px 10px;font-size:12px}.modal{position:fixed;inset:0;background:#0009;z-index:20;display:flex;align-items:center;justify-content:center;padding:15px}.modalbox{max-width:560px;width:100%;max-height:90vh;overflow:auto;background:linear-gradient(145deg,#18253b,#101a2d);border:2px solid var(--line);border-radius:15px;padding:18px;box-shadow:0 10px 35px #000}.modalbox h2{color:var(--gold);margin-top:0}.modalbox label{display:flex;justify-content:space-between;gap:15px;margin:12px 0;align-items:center}.modalbox select,.modalbox input[type=checkbox]{font-size:15px;padding:5px}.toast{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);background:#111d2ddd;border:1px solid var(--gold);padding:9px 15px;border-radius:9px;z-index:30;display:none}.toast.show{display:block;animation:toast 2.4s both}@keyframes toast{0%{opacity:0;bottom:0}15%,80%{opacity:1;bottom:15px}100%{opacity:0;bottom:0}}
+@media(max-width:600px){header{height:55px}header p{display:none}main{padding:5px}.gameboard{min-height:390px;padding:5px}.seat{min-width:78px;padding:5px;font-size:10px}.seat strong{font-size:11px}.seat:nth-child(3){left:3px}.seat:nth-child(4){right:3px}.card{flex-basis:45px;width:45px;height:76px;font-size:16px}.corner{font-size:11px}.corner i{font-size:10px}.big-suit{font-size:26px}.royal-art{left:5px;right:5px;top:13px;width:calc(100% - 10px);height:calc(100% - 26px)}.ace-art{inset:12px 4px}.ace-art b{font-size:20px}.ace-art strong{font-size:24px}.hand{min-height:88px}#table{min-height:310px}.played{width:60px;height:85px;font-size:22px}}
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+</head>
+<body><header><h1>♠ Call Bridge King 👑</h1><p>উন্নত একক Call Bridge • ৩ কম্পিউটার</p></header><main>
+<div class="toolbar"><button id="settingsBtn" class="secondary">⚙ সেটিংস</button><button id="statsBtn" class="secondary">📊 পরিসংখ্যান</button><button id="saveBtn" class="secondary">💾 সেভ</button><button id="resetBtn" class="danger">রিসেট</button></div>
+
+<div class="panel" id="onlinePanel" style="text-align:center">
+<strong style="color:var(--gold);display:block;margin-bottom:8px">🌐 অনলাইন Multiplayer Room</strong>
+<div class="actions">
+<button id="createRoomBtn">➕ Room তৈরি</button>
+<button id="joinRoomBtn" class="secondary">🔑 Room Join</button>
+</div>
+<div id="onlineStatus" style="font-size:12px;margin-top:9px">Firebase সেটআপ হলে অনলাইন রুম চালু হবে।</div>
+<div id="roomPlayers" style="font-size:12px;margin-top:6px"></div><div class="actions" style="margin-top:8px"><button id="startOnlineBtn" class="secondary">🃏 Host: রাউন্ড শুরু</button></div>
+</div>
+<div class="panel gameboard"><div id="seats"></div><div id="table"></div><div id="message">নতুন রাউন্ড শুরু করুন।</div></div>
+<div class="panel" id="bidPanel"><div style="text-align:center;margin-bottom:8px;font-weight:800;color:var(--gold)">তোমার কল নির্বাচন করো</div><div class="bid-display"><span id="bidValue">২</span><small>কল</small></div><input id="bid" class="bid-slider" type="range" min="2" max="13" step="1" value="2"><div class="bid-marks"><span>২</span><span>৫</span><span>৮</span><span>১১</span><span>১৩</span></div><div class="actions" style="margin-top:12px"><button id="bidBtn">♠ কল নিশ্চিত</button></div></div>
+<div class="panel"><div style="text-align:center;font-weight:700;color:var(--gold)">তোমার হাতে থাকা তাস</div><div id="hand" class="hand"></div><div class="actions" style="margin-top:12px"><button id="newBtn">নতুন গেম / রাউন্ড</button><button id="rulesBtn" class="secondary">খেলার নিয়ম</button></div></div>
+<div class="panel"><strong style="color:var(--gold)">স্কোরবোর্ড</strong><div id="scores"></div></div><div class="panel"><strong style="color:var(--gold)">খেলার বিবরণ</strong><div id="log"></div></div></main>
+<div id="modal" class="modal hidden"><div class="modalbox"><div id="modalContent"></div><div class="actions"><button id="closeModal" class="secondary">বন্ধ করুন</button></div></div></div><div id="toast" class="toast"></div>
+<script>
+const suits=['♠','♥','♦','♣'],ranks=['2','3','4','5','6','7','8','9','10','J','Q','K','A'],names=['তুমি','কম্পিউটার ১','কম্পিউটার ২','কম্পিউটার ৩'];let hands=[],bids=[null,null,null,null],tricks=[0,0,0,0],totals=[0,0,0,0],played=[],turn=0,leadSuit=null,round=0,phase='bid',roundTrick=0,stats=JSON.parse(localStorage.cbStats||'{"rounds":0,"wins":0,"best":0,"tricks":0}'),settings=JSON.parse(localStorage.cbSettings||'{"difficulty":"medium","theme":"dark","sound":true,"vibrate":true,"strict":true}');
+const $=id=>document.getElementById(id),bn=n=>Number(n).toLocaleString('bn-BD');
+$('bid').oninput=()=>{$('bidValue').textContent=bn($('bid').value)};
+function deck(){let d=[];for(let s of suits)for(let i=0;i<13;i++)d.push({s,r:ranks[i],v:i});return d}function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}function log(t){$('log').innerHTML=t+'<br>'+$('log').innerHTML}function toast(t){$('toast').textContent=t;$('toast').classList.remove('show');void $('toast').offsetWidth;$('toast').classList.add('show')}function beep(f=500){if(!settings.sound)return;try{let c=new AudioContext(),o=c.createOscillator(),g=c.createGain();o.frequency.value=f;g.gain.value=.035;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.09)}catch(e){}}function buzz(){if(settings.vibrate&&navigator.vibrate)navigator.vibrate(25)}function isRed(c){return c.s==='♥'||c.s==='♦'}function cardText(c){return c.r+c.s}
+function start(){
+ if(onlineRoom){if(onlineSeat!==0){toast('শুধু Room Host নতুন রাউন্ড শুরু করতে পারবেন');return}
+ const d=shuffle(deck());hands=[[],[],[],[]];for(let n=0;n<13;n++)for(let p=0;p<4;p++)hands[p].push(d[n*4+p]);
+ hands.forEach(h=>h.sort((a,b)=>suits.indexOf(a.s)-suits.indexOf(b.s)||a.v-b.v));
+ bids=[null,null,null,null];tricks=[0,0,0,0];played=[];turn=0;leadSuit=null;roundTrick=0;phase='bid';round++;
+ $('bid').value=2;$('bidValue').textContent='২';$('bidPanel').classList.remove('hidden');$('message').textContent='সবাই কল দিন।';$('log').innerHTML='';
+ botBids(); // Bots are disabled in online mode; bids for vacant seats reset below
+ bids=[null,null,null,null];totals=totals||[0,0,0,0];
+ publishGame();render();saveGame();return;
+ }
+ round++;hands=[[],[],[],[]];let d=shuffle(deck());for(let n=0;n<13;n++)for(let p=0;p<4;p++)hands[p].push(d[n*4+p]);hands.forEach(h=>h.sort((a,b)=>suits.indexOf(a.s)-suits.indexOf(b.s)||a.v-b.v));bids=[null,null,null,null];tricks=[0,0,0,0];played=[];turn=0;leadSuit=null;roundTrick=0;phase='bid';$('bid').value=2;$('bidValue').textContent='২';$('bidPanel').classList.remove('hidden');$('message').textContent='তোমার কল দাও।';$('log').innerHTML='';botBids();render();saveGame()
+}
+function botBids(){if(onlineRoom)return;for(let p=1;p<4;p++){let sp=hands[p].filter(c=>c.s==='♠'&&c.v>=9).length,aces=hands[p].filter(c=>c.v===12).length,high=hands[p].filter(c=>c.v>=10).length;let b=2+sp*.8+aces*.65+high*.18+(settings.difficulty==='hard'?Math.random()*.6:Math.random()*1.5);bids[p]=Math.max(2,Math.min(13,Math.round(b)))}}
+function renderSeats(){let seatNames=onlineRoom?onlineNames:names;$('seats').innerHTML=seatNames.map((n,i)=>`<div class="seat ${phase==='play'&&turn===i?'active':''}"><strong>${n}</strong><span class="muted">কল: ${bids[i]==null?'—':bn(bids[i])} | জিতেছে: ${bn(tricks[i])}</span></div>`).join('')}
+function royalArt(c){let red=isRed(c),ink=red?'#a51f2c':'#171326',robe=red?'#9e2635':'#183b37';if(c.r==='A')return `<div class="ace-art"><span class="ace-halo">✦</span><b>A</b><strong>${c.s}</strong><small>ROYAL ACE</small></div>`;return `<svg class="royal-art" viewBox="0 0 100 116" aria-hidden="true"><rect x="3" y="3" width="94" height="110" rx="7" fill="#f7df91" stroke="#8b5b18" stroke-width="2"/><path d="M8 8H92V108H8Z" fill="none" stroke="#b58a35"/><path d="M17 37L27 13 39 28 50 8 62 28 75 13 84 38Z" fill="#d29b27" stroke="#6f4815" stroke-width="2"/><circle cx="50" cy="49" r="23" fill="#e7b878" stroke="#744a27" stroke-width="2"/><path d="M28 48Q25 23 50 25Q77 24 72 49L66 43 61 32 53 40 44 31 36 45Z" fill="#54352b"/><ellipse cx="42" cy="49" rx="2.5" ry="3" fill="#241b1b"/><ellipse cx="58" cy="49" rx="2.5" ry="3" fill="#241b1b"/><path d="M45 61Q50 65 56 60" fill="none" stroke="#8b3e32" stroke-width="2"/><path d="M18 108Q20 76 50 72Q80 76 82 108Z" fill="${robe}" stroke="#6e451d" stroke-width="2"/><path d="M40 74L50 91 60 74 55 108 45 108Z" fill="#f5d58b"/><path d="M50 79L54 87 50 95 46 87Z" fill="${ink}"/><text x="50" y="104" font-size="10" text-anchor="middle" fill="#f8df9c">${c.s}</text><text x="50" y="20" font-size="12" font-weight="bold" text-anchor="middle" fill="#3d2417">${c.r}</text></svg>`}
+function pipMarkup(c){let n=Number(c.r);if(n===1)return `<span class="big-suit">${c.s}</span>`;let rows=Math.ceil(n/2),cells=[];if(n%2){for(let i=0;i<(n-1)/2;i++)cells.push(`<span class="pip">${c.s}</span><span class="pip flip">${c.s}</span>`);cells.splice((n-1),0,`<span class="pip mid">${c.s}</span>`)}else for(let i=0;i<n/2;i++)cells.push(`<span class="pip">${c.s}</span><span class="pip flip">${c.s}</span>`);return `<span class="pip-layout" style="--rows:${rows}">${cells.join('')}</span>`}function faceMarkup(c){return `<span class="corner top"><b>${c.r}</b><i>${c.s}</i></span>${['K','Q','J','A'].includes(c.r)?royalArt(c):pipMarkup(c)}<span class="corner bottom"><b>${c.r}</b><i>${c.s}</i></span>`}
+function renderHand(){let h=$('hand');h.innerHTML='';hands[onlineRoom?onlineSeat:0].forEach((c,i)=>{let b=document.createElement('button');b.className='card '+(isRed(c)?'red':'black');b.innerHTML=faceMarkup(c);b.disabled=phase!=='play'||turn!==(onlineRoom?onlineSeat:0)||!legal(c);b.title=cardText(c);b.onclick=()=>play(onlineRoom?onlineSeat:0,i);h.appendChild(b)})}function renderTable(){let win=played.length===4?winner():-1;$('table').innerHTML=played.map(x=>`<div class="played ${isRed(x.card)?'red':'black'} ${x.p===win?'winner':''}"><small>${names[x.p]}</small>${faceMarkup(x.card)}</div>`).join('')}function renderScores(){$('scores').innerHTML=names.map((n,i)=>`<div class="scoreline"><span>${n} — কল ${bids[i]==null?'—':bn(bids[i])}, ট্রিক ${bn(tricks[i])}</span><b>${bn(totals[i])} পয়েন্ট</b></div>`).join('')}function render(){renderSeats();renderHand();renderTable();renderScores();$('bidPanel').classList.toggle('hidden',phase!=='bid')}
+function legal(c){if(!played.length)return true;let hand=hands[turn],hasLead=hand.some(x=>x.s===leadSuit);if(hasLead)return c.s===leadSuit;if(!settings.strict)return true;let trumps=hand.filter(x=>x.s==='♠');if(!trumps.length)return true;let high=played.filter(x=>x.card.s==='♠').reduce((m,x)=>Math.max(m,x.card.v),-1);let higher=trumps.some(x=>x.v>high);return higher?c.s==='♠'&&c.v>high:c.s==='♠'}
+function strength(x){return(x.card.s==='♠'?1000:x.card.s===leadSuit?500:0)+x.card.v}function winner(){let w=played[0];for(let x of played)if(strength(x)>strength(w))w=x;return w.p}
+function chooseBot(p){let legalCards=hands[p].map((c,i)=>({c,i})).filter(x=>legal(x.c));if(!legalCards.length)return 0;let sorted=legalCards.sort((a,b)=>a.c.v-b.c.v);if(!played.length){let bid=bids[p];let need=Math.max(0,bid-tricks[p]);return (settings.difficulty==='hard'&&need>0)?sorted[sorted.length-1].i:sorted[0].i}let current=played.reduce((a,b)=>strength(a)>strength(b)?a:b),winning=legalCards.filter(x=>strength({p,card:x.c})>strength(current));if(settings.difficulty==='easy')return sorted[0].i;return winning.length?winning[0].i:sorted[0].i}
+$('bidBtn').onclick=()=>{bids[0]=Number($('bid').value);phase='play';turn=0;log('তোমার কল: '+bn(bids[0])+' | অন্যদের কল: '+bids.slice(1).map(bn).join(', '));$('message').textContent='তোমার পালা। একটি তাস খেলো।';beep(700);buzz();render();saveGame()};
+function play(p,i){
+ if(phase!=='play'||p!==turn)return;
+ if(onlineRoom&&p!==onlineSeat)return;
+ let c=hands[p][i];if(!c|| (played.length&&!legal(c)))return;
+ if(!played.length)leadSuit=c.s;hands[p].splice(i,1);played.push({p,card:c});beep(c.s==='♠'?680:500);buzz();render();
+ if(onlineRoom){publishGame();if(played.length===4){let w=winner();tricks[w]++;$('message').textContent=onlineNames[w]+' এই হাতটি জিতেছে।';publishGame();setTimeout(()=>{played=[];turn=w;roundTrick++;if(roundTrick===13)finish();else{publishGame();render()}},1100)}else{turn=(p+1)%4;publishGame();render()}saveGame();return}
+ if(played.length<4){turn=(p+1)%4;if(turn===0){$('message').textContent='তোমার পালা।';renderHand()}else{let botTurn=turn;setTimeout(()=>{if(phase==='play'&&turn===botTurn)play(botTurn,chooseBot(botTurn))},settings.difficulty==='hard'?650:400)}}else{let w=winner();tricks[w]++;$('message').textContent=names[w]+' এই হাতটি জিতেছে।';$('message').classList.add('flash');setTimeout(()=>$('message').classList.remove('flash'),500);render();setTimeout(()=>{played=[];turn=w;roundTrick++;if(roundTrick===13)finish();else{$('message').textContent=names[turn]+' পরের হাত শুরু করবে।';render();if(turn!==0){let botTurn=turn;setTimeout(()=>{if(phase==='play'&&turn===botTurn)play(botTurn,chooseBot(botTurn))},500)}}},900)}
+}
+function finish(){phase='done';stats.rounds++;for(let i=0;i<4;i++){let b=bids[i],t=tricks[i],pts=(t<b||t>=2*b)?-b:b;totals[i]+=pts;log(`${names[i]}: কল ${bn(b)}, জিতেছে ${bn(t)}, পয়েন্ট ${pts>=0?'+':''}${bn(pts)}`)}let champion=totals.findIndex(s=>s>=30);if(totals[0]>stats.best)stats.best=totals[0];if(champion===0)stats.wins++;$('message').textContent=champion!==-1?'🏆 '+names[champion]+' গেম জিতেছে!':'রাউন্ড শেষ!';$('newBtn').textContent=champion!==-1?'নতুন গেম শুরু':'নতুন রাউন্ড';$('newBtn').onclick=()=>{if(champion!==-1)totals=[0,0,0,0];start()};saveGame();if(onlineRoom)publishGame();render();$('bidPanel').classList.add('hidden')}
+function saveGame(){localStorage.cbGame=JSON.stringify({round,hands,bids,tricks,totals,played,turn,leadSuit,roundTrick,phase,stats});localStorage.cbStats=JSON.stringify(stats);localStorage.cbSettings=JSON.stringify(settings)}function loadGame(){let g=JSON.parse(localStorage.cbGame||'null');if(!g)return false;round=g.round||0;hands=g.hands||[];bids=g.bids||[null,null,null,null];tricks=g.tricks||[0,0,0,0];totals=g.totals||[0,0,0,0];played=g.played||[];turn=g.turn||0;leadSuit=g.leadSuit||null;roundTrick=g.roundTrick||0;phase=g.phase||'bid';if(g.stats)stats=g.stats;render();toast('আগের গেম চালু হয়েছে');return true}
+function openModal(type){let c='';if(type==='rules')c='<h2>খেলার নিয়ম</h2><p>৪ জন খেলোয়াড়, ৫২টি তাস। প্রত্যেকে ১৩টি তাস পায়। স্পেড হলো ট্রাম্প। প্রথম খেলোয়াড় যেকোনো স্যুট চালতে পারে; হাতে সেই স্যুট থাকলে অবশ্যই দিতে হবে। স্যুট না থাকলে নিয়ম অনুযায়ী স্পেড দিয়ে কাটতে হবে। সর্বোচ্চ স্পেড, অথবা চালের স্যুটের সর্বোচ্চ তাস ট্রিক জেতে। কলের চেয়ে কম ট্রিক বা কলের দ্বিগুণ/তার বেশি হলে কলের সমান পেনাল্টি, অন্যথায় সমান পয়েন্ট।</p><p>তোমার লক্ষ্য: ৩০ পয়েন্টে সবার আগে পৌঁছানো।</p>';if(type==='stats')c=`<h2>পরিসংখ্যান</h2><p>মোট রাউন্ড: <b>${bn(stats.rounds)}</b><br>জয়: <b>${bn(stats.wins)}</b><br>মোট ট্রিক: <b>${bn(stats.tricks)}</b><br>সেরা স্কোর: <b>${bn(stats.best)}</b></p>`;if(type==='settings')c=`<h2>সেটিংস</h2><label>AI দক্ষতা<select id="difficulty"><option value="easy">সহজ</option><option value="medium">মাঝারি</option><option value="hard">কঠিন</option></select></label><label>থিম<select id="theme"><option value="dark">ডার্ক গোল্ড</option><option value="light">লাইট</option><option value="neon">নিয়ন</option></select></label><label>সাউন্ড <input id="sound" type="checkbox"></label><label>ভাইব্রেশন <input id="vibrate" type="checkbox"></label><label>ট্রাম্প/কাটার নিয়ম <input id="strict" type="checkbox"></label><button id="applySettings">প্রয়োগ করুন</button>`;$('modalContent').innerHTML=c;$('modal').classList.remove('hidden');if(type==='settings'){['difficulty','theme'].forEach(id=>$(id).value=settings[id]);['sound','vibrate','strict'].forEach(id=>$(id).checked=settings[id]);$('applySettings').onclick=()=>{settings.difficulty=$('difficulty').value;settings.theme=$('theme').value;settings.sound=$('sound').checked;settings.vibrate=$('vibrate').checked;settings.strict=$('strict').checked;document.body.className=settings.theme==='dark'?'':settings.theme;saveGame();$('modal').classList.add('hidden');toast('সেটিংস সংরক্ষিত');render()}}}
+
+// ===== ONLINE ROOM (Firebase Realtime Database) =====
+// Firebase Console থেকে আপনার Web App config এখানে বসান।
+const FIREBASE_CONFIG = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+  projectId: "YOUR_PROJECT",
+  appId: "YOUR_APP_ID"
+};
+let onlineDB=null, onlineRoom=null, onlineSeat=-1, onlineName="Player", onlineRef=null, onlineBusy=false, onlineNames=names.slice();
+function onlineReady(){
+  return FIREBASE_CONFIG.apiKey!=="YOUR_API_KEY" && window.firebase;
+}
+function initOnline(){
+  if(!onlineReady()){
+    $('onlineStatus').innerHTML='⚠️ Firebase config বসাতে হবে। নিচের নির্দেশনা দেখুন।';
+    return false;
+  }
+  try{
+    if(!firebase.apps.length)firebase.initializeApp(FIREBASE_CONFIG);
+    onlineDB=firebase.database();$('onlineStatus').textContent='✅ Online system প্রস্তুত';
+    return true;
+  }catch(e){$('onlineStatus').textContent='Firebase error: '+e.message;return false}
+}
+function roomCode(){return Math.random().toString(36).slice(2,8).toUpperCase()}
+function safeName(){let n=prompt('আপনার Player নাম লিখুন:',onlineName);if(!n)return null;return n.trim().slice(0,18)||'Player'}
+function renderRoomPlayers(data){
+  const players=data&&data.players?Object.values(data.players):[];
+  $('roomPlayers').innerHTML=players.map(p=>`<div>🧑 ${escapeOnline(p.name)} ${p.seat===onlineSeat?'(আপনি)':''}</div>`).join('');
+}
+function escapeOnline(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function createOnlineRoom(){
+  if(!initOnline())return;
+  const name=safeName();if(!name)return;onlineName=name;
+  const code=roomCode();onlineRoom=code;onlineSeat=0;
+  onlineRef=onlineDB.ref('callBridgeRooms/'+code);
+  await onlineRef.set({createdAt:firebase.database.ServerValue.TIMESTAMP,status:'waiting',players:{0:{name,seat:0,uid:'host'}},game:null});
+  watchOnlineRoom();
+  $('onlineStatus').innerHTML=`Room Code: <b style="font-size:20px;color:var(--gold)">${code}</b><br>বন্ধুকে এই কোড দিন`;
+}
+async function joinOnlineRoom(){
+  if(!initOnline())return;
+  const code=(prompt('বন্ধুর Room Code লিখুন:')||'').trim().toUpperCase();if(!code)return;
+  const name=safeName();if(!name)return;onlineName=name;
+  const ref=onlineDB.ref('callBridgeRooms/'+code),snap=await ref.get();
+  if(!snap.exists()){alert('Room পাওয়া যায়নি। কোড চেক করুন।');return}
+  const data=snap.val(),players=data.players||{},used=Object.keys(players).map(Number);
+  const seat=[0,1,2,3].find(n=>!used.includes(n));
+  if(seat===undefined){alert('Room পূর্ণ (৪ জন)।');return}
+  onlineRoom=code;onlineSeat=seat;onlineRef=ref;
+  await ref.child('players/'+seat).set({name,seat,uid:'p'+seat});
+  watchOnlineRoom();
+  $('onlineStatus').innerHTML=`Room Code: <b style="color:var(--gold)">${code}</b> | Seat ${seat+1}`;
+}
+function publishGame(){
+ if(!onlineRef||onlineSeat!==0)return;
+ onlineRef.child('game').set({round,hands,bids,tricks,totals,played,turn,leadSuit,roundTrick,phase,stats,log:$('log').innerHTML});
+}
+function applyOnlineGame(g){
+ if(!g)return;round=g.round||0;hands=g.hands||[[],[],[],[]];bids=g.bids||[null,null,null,null];tricks=g.tricks||[0,0,0,0];totals=g.totals||[0,0,0,0];played=g.played||[];turn=g.turn||0;leadSuit=g.leadSuit||null;roundTrick=g.roundTrick||0;phase=g.phase||'bid';if(g.stats)stats=g.stats;
+ if(g.log)$('log').innerHTML=g.log;
+ render();$('bidPanel').classList.toggle('hidden',phase!=='bid');
+ $('message').textContent=phase==='bid'?(bids[onlineSeat]==null?'আপনার কল দিন।':'কল দেওয়া হয়েছে; অন্যদের অপেক্ষা করুন।'):(phase==='play'?(turn===onlineSeat?'আপনার পালা—তাস দিন।':onlineNames[turn]+' এর পালা।'):'রাউন্ড শেষ');
+}
+function watchOnlineRoom(){
+  if(!onlineRef)return;
+  onlineRef.on('value',snap=>{
+    const d=snap.val();if(!d)return;
+    renderRoomPlayers(d);
+    onlineNames=[0,1,2,3].map(i=>d.players&&d.players[i]?d.players[i].name:'খালি Seat '+(i+1));
+    if(d.game)applyOnlineGame(d.game);
+    const count=Object.keys(d.players||{}).length;
+    $('onlineStatus').innerHTML=`🌐 Room <b style="color:var(--gold)">${onlineRoom}</b> • ${count}/4 Player`;
+  });
+}
+$('startOnlineBtn').onclick=()=>{if(!onlineRoom){toast('আগে Room তৈরি/Join করুন');return}if(onlineSeat!==0){toast('শুধু Host রাউন্ড শুরু করতে পারবেন');return}start()};
+$('createRoomBtn').onclick=createOnlineRoom;
+$('joinRoomBtn').onclick=joinOnlineRoom;
+
+$('rulesBtn').onclick=()=>openModal('rules');$('statsBtn').onclick=()=>openModal('stats');$('settingsBtn').onclick=()=>openModal('settings');$('closeModal').onclick=()=>$('modal').classList.add('hidden');$('modal').onclick=e=>{if(e.target.id==='modal')$('modal').classList.add('hidden')};$('saveBtn').onclick=()=>{saveGame();toast('গেম সেভ হয়েছে')};$('resetBtn').onclick=()=>{if(confirm('সব স্কোর ও সেভ মুছে ফেলবেন?')){localStorage.removeItem('cbGame');totals=[0,0,0,0];stats={rounds:0,wins:0,best:0,tricks:0};start();toast('সব রিসেট হয়েছে')}};$('newBtn').onclick=start;document.body.className=settings.theme==='dark'?'':settings.theme;if(!loadGame())start();
+</script></body></html>
